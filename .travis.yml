@@ -1,0 +1,21 @@
+
+python:
+
+  - "3.6"
+
+
+install: 
+  - pip install -r requirements.txt
+  - pip install coveralls
+
+before_script:
+  - psql -c "CREATE DATABASE questionerdb;" -U postgres
+  - psql -c "CREATE DATABASE testdb;" -U postgres
+
+install:
+  - pip install -r requirements.txt
+
+script: coverage run --source=app -m pytest && coverage report
+
+after_success: coveralls
+  
