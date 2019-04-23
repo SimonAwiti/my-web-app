@@ -48,4 +48,12 @@ class Responses(Helper):
             "data": resp_dict,
             "Message": "Message succesfully send"
         }, 201
+
+    def get_all_responses(self):
+        """Fetch all response records from the response list"""
+        return {
+            "status": 200,
+            "data": responses,
+            "Message": "All responses posted"
+        }, 200
         

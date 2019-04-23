@@ -3,7 +3,7 @@ from flask_restful import Resource, reqparse
 from flask import request
 
 from app.models.v1_models import Responses
-#from app.API.utilities.validator import validate_responses
+from app.utilities.validators import validate_responses
 
 parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('name', help="Kindly provide your name", required='True')
@@ -21,7 +21,7 @@ class NewMessage(Resource):
     def post(self):
         """Route to handle creating responses"""
         args = parser.parse_args()
-        response = args
+        response = validate_responses(args)
         if response == "valid":
             return Responses().add_resp(
                 args['name'],
@@ -32,4 +32,4 @@ class NewMessage(Resource):
     
     def get(self):
         """Route to fetch all response"""
-        return Responses.get_all_res()
+        return Responses().get_all_responses()
