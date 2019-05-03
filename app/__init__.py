@@ -41,7 +41,7 @@ def create_app(config_name):
     api_endpoint = Api(app)
 
     # Meetups Resource v1
-    api_endpoint.add_resource(NewMessage, '/api/v1/responses')
+    api_endpoint.add_resource(NewMessage, '/api/v2/responses')
 
     # Add CORS to handle Access-Control-Allow-Origin issues
     CORS(app)

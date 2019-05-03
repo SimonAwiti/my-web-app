@@ -2,7 +2,7 @@
 from flask_restful import Resource, reqparse
 from flask import request
 
-from app.models.v1_models import Responses
+from app.models.v2_models import Users
 from app.utilities.validators import validate_responses
 
 parser = reqparse.RequestParser(bundle_errors=True)
@@ -15,15 +15,15 @@ parser.add_argument('message', help="Kindly provide a short message", required='
 class NewMessage(Resource):
     """
     Class to handle adding and fetching all messages
-    POST /api/v1/responses -> Creates a new response
-    GET /api/v1/responses -> Gets all responses
+    POST /api/v2/responses -> Creates a new response
+    GET /api/v2/responses -> Gets all responses
     """
     def post(self):
         """Route to handle creating responses"""
         args = parser.parse_args()
         response = validate_responses(args)
         if response == "valid":
-            return Responses().add_resp(
+            return Users().send_message(
                 args['name'],
                 args['email'],
                 args['phone'],
@@ -32,4 +32,4 @@ class NewMessage(Resource):
     
     def get(self):
         """Route to fetch all response"""
-        return Responses().get_all_responses()
+        return Users().get_all_responses()
