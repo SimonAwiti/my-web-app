@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 
 from instance.config import app_config
 from app.views.views import NewMessage
+from app.utilities.db.connection import initializedb
 
 """importing the configurations from the .config file which is in the instance folder"""
 def create_app(config_name):
@@ -44,5 +45,7 @@ def create_app(config_name):
 
     # Add CORS to handle Access-Control-Allow-Origin issues
     CORS(app)
+
+    initializedb()
 
     return app
